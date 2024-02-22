@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-deployment
+  name: {{ .Values.deployName }}-front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-deployment
+      app: {{ .Values.deployName }}-front
   template:
     metadata:
       labels:
-        app: front-deployment
+        app: {{ .Values.deployName }}-front
     spec:
       containers:
-        - name: front-deployment
+        - name: {{ .Values.deployName }}-front
           image: nicodev28/img-front:latest
           env:
           - name: {{ .Values.varName }}
             valueFrom:
               configMapKeyRef:
                 name: {{ .Values.configMapName }}
-                key: {{ .Values.varConfigMapName}}
+                key: {{ .Values.varConfigMapName }}
           resources:
             limits:
               cpu: "0.1"

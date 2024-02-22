@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: back-service
+  name: {{ .Values.deployName }}-back-service
 spec:
   type: ClusterIP
   selector:
-    app: back-deployment
+    app: {{ .Values.deployName }}-back
   ports:
     - protocol: TCP
       port: 5000

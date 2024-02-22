@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: back-deployment
+  name: {{ .Values.deployName }}-back
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: back-deployment
+      app: {{ .Values.deployName }}-back
   template:
     metadata:
       labels:
-        app: back-deployment
+        app: {{ .Values.deployName }}-back
     spec:
       containers:
-        - name: back-deployment
+        - name: {{ .Values.deployName }}-back
           image: nicodev28/img-back:latest
           resources:
             limits:
