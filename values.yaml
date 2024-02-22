@@ -1,0 +1,5 @@
+volumeName: "prod"
+mountPath: "/prod"
+configMapName: "configmap-prod"
+varConfigMapName: "envprod"
+varName: "myenv"

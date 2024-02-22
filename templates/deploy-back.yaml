@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back-deployment
+  template:
+    metadata:
+      labels:
+        app: back-deployment
+    spec:
+      containers:
+        - name: back-deployment
+          image: nicodev28/img-back:latest
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: "64Mi"
+            requests:
+              cpu: "50m"
+              memory: "32Mi"
+          ports:
+            - containerPort: 5000

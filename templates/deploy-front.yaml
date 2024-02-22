@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-deployment
+  template:
+    metadata:
+      labels:
+        app: front-deployment
+    spec:
+      containers:
+        - name: front-deployment
+          image: nicodev28/img-front:latest
+          env:
+          - name: {{ .Values.varName }}
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.configMapName }}
+                key: {{ .Values.varConfigMapName}}
+          resources:
+            limits:
+              cpu: "0.1"
+              memory: "64Mi"
+            requests:
+              cpu: "50m"
+              memory: "32Mi"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: {{ .Values.volumeName }}
+            mountPath: {{ .Values.mountPath }}
+            readOnly: true
+      volumes:
+      - name: {{ .Values.volumeName }}
+        configMap:
+          name: {{ .Values.configMapName }}
+
