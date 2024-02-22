@@ -4,3 +4,4 @@ metadata:
   name: configmap-prod
 data:
   envprod: "prod"
+  BACKEND_URL: "http://{{ .Values.deployName }}-back-service.{{ .Release.Namespace }}.svc.cluster.local:5000/racontemoiunehistoire"
