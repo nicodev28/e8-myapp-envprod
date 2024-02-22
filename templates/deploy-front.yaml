@@ -15,9 +15,17 @@ spec:
       containers:
         - name: {{ .Values.deployName }}-front
           image: nicodev28/img-front:latest
-          envFrom:
-          - configMapRef:
-              name: {{ .Values.configMapName }}
+          env:
+            - name: {{ .Values.varName }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMapName }}
+                  key: {{ .Values.varConfigMapName }}
+            - name: {{ .Values.varBackend }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMapName }}
+                  key: {{ .Values.varBackend }}
           resources:
             limits:
               cpu: "0.1"
