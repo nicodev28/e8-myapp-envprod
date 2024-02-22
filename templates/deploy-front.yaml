@@ -15,12 +15,9 @@ spec:
       containers:
         - name: {{ .Values.deployName }}-front
           image: nicodev28/img-front:latest
-          env:
-          - name: {{ .Values.varName }}
-            valueFrom:
-              configMapKeyRef:
-                name: {{ .Values.configMapName }}
-                key: {{ .Values.varConfigMapName }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.configMapName }}
           resources:
             limits:
               cpu: "0.1"
@@ -30,12 +27,4 @@ spec:
               memory: "32Mi"
           ports:
             - containerPort: 80
-          volumeMounts:
-          - name: {{ .Values.volumeName }}
-            mountPath: {{ .Values.mountPath }}
-            readOnly: true
-      volumes:
-      - name: {{ .Values.volumeName }}
-        configMap:
-          name: {{ .Values.configMapName }}
 
